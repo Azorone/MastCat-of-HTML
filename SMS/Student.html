@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+     <link rel="stylesheet" href="CSS/Student.css">
+</head>
+<body style="background-color: azure; margin: 0px;">
+    <div style="position:fixed; background-color: rgb(20, 29, 49); width: 100%; display: flex; justify-content: right;">
+        <div style="width: 25%;">
+            <div>
+                <p style="color:aliceblue; font-size: 20px;">欢迎使用猫咪教室</p>
+            </div>
+           
+        </div> 
+        <div style="width: 50%;">
+
+        </div>
+        <div style="margin-top: 10px;">
+            <input type="text" placeholder="输入编号加入教室" style="width: 300px; height:80%; outline-style: none;"> <input type="button" value="加入教室"  style="height: 40px; border-style: none; outline-style: none; margin-right: 40px;">
+        </div>
+        
+        
+      </div> 
+    
+      <div style="width: 100%; height: 100%;display: flex; justify-content: center; ">
+          <div style="width: 70%;  background-color: rgb(94, 124, 155); padding-bottom: 20px; padding-top: 50px; " id="SMS-showClass">
+             
+               <div style="display: flex; justify-content: center; flex-direction: column; width: 100%; ">
+                  <div class="sms-cardC">
+                      <p class="p1">计算机科学与技术五班JavaScript程序设计课程</p>
+                      <input class="inputID" value="1" type="hidden">
+                      <div  class="sms-card"  >
+                                <div  class="sms-cardButton" value="1">
+                                    提交作业
+                                </div>
+                                <div  class="sms-cardButton">
+                                       教学资料
+                                </div>
+                                <div  class="sms-cardButton" >
+                                       同学录
+                                </div>
+                                <div  class="sms-cardButton" >
+                                     在线考试
+                                </div>
+                                <div  class="sms-cardButton" >
+                                        知识练习
+                                </div>
+                                <div  class="sms-cardButton" >
+                                        课程题库
+                                </div>
+                                <div  class="sms-cardButton" >
+                                    成绩查看
+                            </div>
+                      </div>
+                  </div>
+                
+                
+                
+               </div>
+
+          </div>
+             
+    </div>
+    <script src="JS/jquery-3.6.0.js"></script>
+    <script>
+        var getdata = {}
+        var  JsonTest = [{"cid":"4","cname":"计算机科学与技术五班","cnumber":"0","tid":"16","cdescribe":"用于测试的班级样例","ccode":"4567"},{"cid":"4","cname":"计算机科学与技术五班","cnumber":"0","tid":"16","cdescribe":"用于测试的班级样例","ccode":"4567"},{"cid":"4","cname":"计算机科学与技术五班","cnumber":"0","tid":"16","cdescribe":"用于测试的班级样例","ccode":"4567"}];
+        var buttonA   = ["提交作业","教学资料","同学录","在线考试","知识练习","课程题库","成绩查看"];
+       $(".sms-cardButton").click(function(){
+            let key = this.innerText;
+            let nodeClass = this.getAttribute("value");
+            console.log(nodeClass);
+            let IDname 
+           
+            console.log(key);
+            change(key);
+       })
+       function change(key){
+
+             if(key==="教学资料")
+             {
+                
+             }
+             else if(key ==="提交作业")
+             {
+
+             }
+             else if(key ==="同学录")
+             {
+
+             }
+             else if(key === "在线考试")
+             {
+
+             }
+             else if(key === "知识练习")
+             {
+
+             }
+       }
+
+        function postData(){
+          
+
+
+        }
+
+
+        function getData(url,data){
+          $.ajax({
+              type: "get",
+              url: url,
+              data: data,
+              dataType: "json",
+              success: function (response) {
+                creatClass(response,"SMS-showClass",buttonA)
+              }
+          });
+        } 
+        //创建教室函数 response 后端返回的数据 DivID 容器 buttonArry 按钮数组
+        function creatClass(response,DivID,buttonArry){
+           let Tager = `#${DivID}`;
+           let size = response.length;
+           console.log("数组的大小是："+size);
+
+           $($.each(response, function (indexInArray, valueOfElement) { 
+                  let nodeRoot = $(Tager);
+                  let nodeOne     = $("<div class='sms-cardC'></div>");
+                  let nodeP       = $("<p class='p1'>"+valueOfElement.cname+"<p>")
+                  let nodeCard    = $("<div class='sms-card'></div>")
+                   for( i =0;i<buttonArry.length;i++) 
+                   {
+                         let button    = $("<div class='sms-cardButton' value= '"+ valueOfElement.cid+"'>"+ buttonArry[i]+ "</div>");
+                         button.click(function(){
+            let key = this.innerText;
+            let nodeClass = this.getAttribute("value");
+            console.log(nodeClass);
+            let IDname 
+           
+            console.log(key);
+            change(key);
+       })
+                         nodeCard.append(button);
+                   }
+                  nodeOne.append(nodeP);
+                  nodeOne.append(nodeCard);
+                  nodeRoot.append(nodeOne);
+           }))
+
+                let node=$(Tager)
+        }
+       function creaNodeClass(Element){
+            
+            Element.cid;
+       }
+
+    </script>
+</body>
+</html>
